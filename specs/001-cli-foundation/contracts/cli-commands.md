@@ -8,7 +8,7 @@
 ```text
 Command: muggi
 Arguments: none
-Environment: none required for the default mock backend
+Environment: no API key required by Muggi itself
 Behavior: Launches interactive session
 Exit codes:
   0 — clean exit via /exit or Ctrl+D
@@ -65,7 +65,7 @@ All other text:
 ## Error Handling
 
 ```text
-LLM API error (network, auth, rate limit, etc.):
+Backend error (`codex exec` unavailable, auth/network failure, etc.):
   → Print user-friendly message to stderr
   → Return to input prompt (do NOT exit)
 
@@ -73,10 +73,7 @@ Empty LLM response:
   → Print notice to stdout: "No response received. Try again."
   → Return to input prompt
 
-Default mock backend:
-  → Runs locally with no network or API key
-
-Future real backend:
-  → May require environment configuration, but should keep the same
-    command and session flow
+Startup backend check:
+  → If `codex` is not installed or unavailable, print a clear error
+  → Exit with code 1
 ```

@@ -2,10 +2,14 @@
 
 import { stderr } from "node:process";
 
+import { createLlmProvider } from "./llm.js";
 import { runSession } from "./session.js";
 
 async function main(): Promise<void> {
-  await runSession();
+  const llmProvider = createLlmProvider();
+
+  await llmProvider.checkAvailability();
+  await runSession(llmProvider);
 }
 
 main().catch((error) => {

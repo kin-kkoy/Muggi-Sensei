@@ -64,9 +64,9 @@ CommandRegistry 1──* Command
   independent of Session — commands exist regardless of
   conversation state.
 
-## LLM Message Format
+## Provider Message Format
 
-The conversation history sent to the Claude API maps directly
+The conversation history sent to the backend provider maps directly
 from the Exchange list:
 
 ```text
@@ -76,6 +76,6 @@ Exchange[1].userMessage     → { role: "user", content: "..." }
 ...current user input       → { role: "user", content: "..." }
 ```
 
-The system prompt (defining Muggi-Sensei's persona and teaching
-behavior) is sent as the `system` parameter on every API call,
-not as a message in the array.
+The provider can turn this list into whatever backend-specific prompt
+format it needs. Muggi remains responsible for preserving the ordered
+exchange history in memory.

@@ -15,21 +15,23 @@ without the overhead of compiled languages.
 preference is TypeScript), Go (single binary but weaker LLM
 ecosystem), Rust (too much overhead for hobby project).
 
-## 2. LLM Adapter
+## 2. Provider Backend
 
-**Decision**: Small local LLM adapter with a mock implementation as
-the default backend
+**Decision**: Small provider abstraction with `codex exec` as the
+first backend
 
 **Rationale**:
-- Keeps the CLI runnable with no API key or network dependency
-- Preserves a clean seam for later Anthropic integration
+- Keeps Muggi focused on the CLI shell while delegating response
+  generation to Codex
+- Preserves a clean seam for later backend swaps
 - Conversation history is manual: maintain a message array and
   append user/assistant messages each turn
-- Avoids premature backend lock-in while the CLI loop is still small
+- `codex exec --output-last-message` gives a simple way to capture
+  the final assistant reply
 
-**Alternatives considered**: Direct Anthropic integration now.
-Rejected for the current stage because it adds external setup and
-makes the MVP harder to run locally.
+**Alternatives considered**: Direct Anthropic integration, and a
+local mock backend. Rejected because the current goal is to run Muggi
+through Codex while still keeping the CLI shell separate.
 
 ## 3. Interactive CLI
 
@@ -72,7 +74,7 @@ more configuration for TypeScript + ESM).
 
 **Not needed (YAGNI)**:
 - Commander/yargs/oclif — two commands, simple string parsing
-- dotenv — no runtime configuration needed for the mock adapter
+- Anthropic SDK — backend responses come from `codex exec`
 - chalk/colors — plain text output for MVP
 - ora/spinners — out of scope for this feature
 - inquirer/prompts — readline/promises is sufficient

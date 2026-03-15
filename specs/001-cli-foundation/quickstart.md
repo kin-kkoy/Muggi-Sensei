@@ -3,6 +3,7 @@
 ## Prerequisites
 
 - Node.js 20+ installed
+- `codex` installed and available on your `PATH`
 
 ## Setup
 
@@ -19,8 +20,8 @@ npm install
 npm run dev
 ```
 
-This launches the interactive session using the default mock tutor
-adapter via `tsx` (no build step).
+This launches the interactive session using Muggi as the shell and
+`codex exec` as the response backend via `tsx` (no build step).
 
 ## Run (Built)
 
@@ -37,15 +38,12 @@ muggi
 Welcome to Muggi-Sensei! Type /help for commands.
 
 muggi> What is a closure in JavaScript?
-You asked about: What is a closure in JavaScript?
-Start by breaking the problem into one small step you can explain in your own words.
-If you want, ask for an example or a simpler version next.
+A closure is a function that can keep access to variables from its
+outer scope even after that outer function has finished running.
 
 muggi> Can you give me an example?
-Here is a simple example related to your earlier question about: What is a closure in JavaScript?
-1. Start with a tiny input.
-2. Describe what the code should do.
-3. Trace the result one line at a time.
+Sure. A common example is a function that returns another function
+which still remembers a counter variable.
 
 muggi> /exit
 Goodbye!
@@ -64,5 +62,5 @@ npm test
 - **SC-002**: Hold 5+ exchanges referencing earlier context — LLM
   should maintain awareness.
 - **SC-003**: Type `/help` — command list should appear.
-- **SC-004**: The CLI should keep running without any network or API
-  key requirement when using the default mock backend.
+- **SC-004**: If `codex exec` fails during a request, Muggi should
+  show an error and remain usable.

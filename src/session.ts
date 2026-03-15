@@ -2,7 +2,7 @@ import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output, stderr as errorOutput } from "node:process";
 
 import { createCommandRegistry } from "./commands.js";
-import { createLlmAdapter, type LlmAdapter, type LlmMessage } from "./llm.js";
+import { createLlmProvider, type LlmMessage, type LlmProvider } from "./llm.js";
 import type { Session } from "./types.js";
 
 function buildMessages(session: Session, userMessage: string): LlmMessage[] {
@@ -32,7 +32,7 @@ function parseCommand(inputText: string): { name: string; args: string } {
   };
 }
 
-export async function runSession(llmAdapter: LlmAdapter = createLlmAdapter()): Promise<void> {
+export async function runSession(llmProvider: LlmProvider = createLlmProvider()): Promise<void> {
   const session: Session = {
     exchanges: [],
     startedAt: new Date(),
@@ -77,7 +77,7 @@ export async function runSession(llmAdapter: LlmAdapter = createLlmAdapter()): P
 
     try {
       const messages = buildMessages(session, trimmedInput);
-      const assistantMessage = await llmAdapter.sendMessage(messages);
+      const assistantMessage = await llmProvider.sendMessage(messages);
 
       if (assistantMessage === "") {
         console.log("No response received. Try again.");

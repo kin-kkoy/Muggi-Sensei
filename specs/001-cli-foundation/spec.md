@@ -141,11 +141,10 @@ suggesting `/help`.
 
 ### Assumptions
 
-- The CLI uses a swappable LLM adapter. The current implementation
-  uses a local mock backend so the app can run without external API
-  access.
-- A real remote backend can be added later behind the same adapter
-  without changing the session loop.
+- The CLI uses a swappable provider abstraction. The current
+  implementation shells out to `codex exec` for responses.
+- Muggi owns the interactive shell and in-memory conversation
+  history. The provider only handles generating the next response.
 - LLM responses are displayed as plain text. No markdown rendering,
   syntax highlighting, or rich formatting in this feature.
 - No visual activity indicator while awaiting the LLM response.

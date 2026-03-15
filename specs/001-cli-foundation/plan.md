@@ -6,7 +6,7 @@
 ## Summary
 
 Build the minimal interactive CLI for Muggi-Sensei: a terminal-based
-REPL that uses a swappable LLM adapter, maintains in-memory
+REPL that uses a swappable provider, maintains in-memory
 conversation history, and supports an extensible slash-command system
 with `/help` and `/exit` as the initial built-in commands. Plain text
 input and output only.
@@ -14,7 +14,7 @@ input and output only.
 ## Technical Context
 
 **Language/Version**: TypeScript on Node.js 20+ (ES modules)
-**Primary Dependencies**: Node.js built-ins for CLI flow; LLM backend behind a small adapter
+**Primary Dependencies**: Node.js built-ins for CLI flow; local `codex exec` for backend responses
 **Storage**: In-memory only (no persistence in this feature)
 **Testing**: Vitest
 **Target Platform**: Linux, macOS, Windows (any Node.js environment)
@@ -61,7 +61,7 @@ src/
 ├── index.ts              # Entry point (shebang, bootstrap)
 ├── session.ts            # Session loop, input handling
 ├── commands.ts           # Command registry, /help, /exit
-└── llm.ts                # LLM adapter + default mock implementation
+└── llm.ts                # Provider interface + Codex exec provider
 
 tests/
 ├── commands.test.ts      # Command registry + built-in commands
