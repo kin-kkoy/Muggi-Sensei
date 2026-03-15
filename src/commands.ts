@@ -37,6 +37,12 @@ export class CommandRegistry {
 export function createCommandRegistry(): CommandRegistry {
   const registry = new CommandRegistry();
 
+  registry.register("help", "Show available commands.", () => {
+    for (const command of registry.getAll()) {
+      console.log(`/${command.name}  - ${command.description}`);
+    }
+  });
+
   registry.register("exit", "Exit Muggi-Sensei.", async () => {
     process.stdout.write("Goodbye!\n", () => {
       process.exit(0);

@@ -68,9 +68,12 @@ export async function runSession(llmProvider: LlmProvider = createLlmProvider())
       const command = parseCommand(trimmedInput);
       const registeredCommand = commandRegistry.get(command.name);
 
-      if (registeredCommand) {
-        await registeredCommand.handler(command.args);
+      if (!registeredCommand) {
+        errorOutput.write(`Unknown command: /${command.name}. Type /help for available commands.\n`);
+        continue;
       }
+
+      await registeredCommand.handler(command.args);
 
       continue;
     }

@@ -24,6 +24,7 @@ TypeScript on Node.js 20+ (ES modules): Follow standard conventions
 ## Recent Changes
 
 - 001-cli-foundation: Added TypeScript on Node.js 20+ (ES modules) CLI foundation with a Codex exec provider
+- 001-cli-foundation: Added Muggi tutor instructions to shape Codex responses toward beginner-friendly teaching
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

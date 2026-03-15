@@ -20,7 +20,7 @@
 - [ ] T001 Initialize package.json with name "muggi-sensei", version "0.1.0", type "module", bin entry "muggi" → "./dist/index.js", scripts (build, dev, start, test) in package.json
 - [ ] T002 [P] Create tsconfig.json with target ES2022, module nodenext, moduleResolution nodenext, strict true, outDir dist, rootDir src in tsconfig.json
 - [ ] T003 [P] Add node_modules/ and dist/ to .gitignore
-- [ ] T004 Install dependencies: @anthropic-ai/sdk (runtime), typescript, vitest, tsx (dev) via npm install
+- [ ] T004 Install dependencies: typescript, vitest, tsx, and Node type support via npm install
 
 ---
 
@@ -46,9 +46,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement LLM client wrapper in src/llm.ts: initialize Anthropic client, sendMessage(messages: MessageParam[]) → string function, catch and rethrow API errors with user-friendly messages, handle empty responses
-- [ ] T009 [US1] Implement session loop in src/session.ts: create readline interface, display welcome message mentioning /help, prompt loop with rl.question(), skip empty/whitespace input, detect "/" prefix and dispatch to CommandRegistry, otherwise send to LLM client with accumulated conversation history, display plain-text response, handle Ctrl+D via close event
-- [ ] T010 [US1] Create entry point in src/index.ts: shebang line (#!/usr/bin/env node), check ANTHROPIC_API_KEY exists or print error to stderr and exit(1), bootstrap session loop
+- [ ] T008 [US1] Implement provider wrapper in src/llm.ts: define provider interface, use `codex exec` to generate the next response from Muggi's conversation history, catch and rethrow backend errors with user-friendly messages, handle empty responses
+- [ ] T009 [US1] Implement session loop in src/session.ts: create readline interface, display welcome message mentioning /help, prompt loop with rl.question(), skip empty/whitespace input, detect "/" prefix and dispatch to CommandRegistry, otherwise send accumulated conversation history to the provider, display plain-text response, handle Ctrl+D via close event
+- [ ] T010 [US1] Create entry point in src/index.ts: shebang line (#!/usr/bin/env node), verify `codex` is available or print an error to stderr and exit(1), bootstrap session loop
 
 **Checkpoint**: User Story 1 fully functional — launch, converse, context retention, exit all work
 
@@ -95,7 +95,7 @@
 
 - Phase 1: T001 first, then T002+T003 parallel, then T004
 - Phase 2: T005 first (types), then T006 (registry uses types), then T007 (exit uses registry)
-- Phase 3: T008 first (LLM client), then T009 (session uses LLM client), then T010 (entry point uses session)
+- Phase 3: T008 first (provider wrapper), then T009 (session uses provider), then T010 (entry point uses session)
 - Phase 4: T011 first (help command), then T012 (unknown handling in session)
 - Phase 5: T013+T014+T015 parallel, then T016, then T017
 

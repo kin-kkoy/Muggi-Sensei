@@ -7,7 +7,7 @@
 
 **Decision**: TypeScript on Node.js (ES modules, `"type": "module"`)
 
-**Rationale**: User choice. Strong Anthropic SDK support, fast
+**Rationale**: User choice. Fast
 prototyping, good CLI ecosystem. TypeScript provides type safety
 without the overhead of compiled languages.
 
