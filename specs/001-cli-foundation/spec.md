@@ -141,11 +141,11 @@ suggesting `/help`.
 
 ### Assumptions
 
-- The LLM backend is the Claude API, accessed via an existing
-  subscription (no additional cost considerations).
-- Authentication to the LLM API is handled via environment
-  variables or a configuration file — exact mechanism deferred to
-  implementation.
+- The CLI uses a swappable LLM adapter. The current implementation
+  uses a local mock backend so the app can run without external API
+  access.
+- A real remote backend can be added later behind the same adapter
+  without changing the session loop.
 - LLM responses are displayed as plain text. No markdown rendering,
   syntax highlighting, or rich formatting in this feature.
 - No visual activity indicator while awaiting the LLM response.

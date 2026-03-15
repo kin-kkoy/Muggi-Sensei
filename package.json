@@ -6,15 +6,13 @@
     "muggi": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "test": "vitest run"
   },
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.78.0"
-  },
   "devDependencies": {
+    "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0"

@@ -38,8 +38,9 @@ export function createCommandRegistry(): CommandRegistry {
   const registry = new CommandRegistry();
 
   registry.register("exit", "Exit Muggi-Sensei.", async () => {
-    console.log("Goodbye!");
-    process.exit(0);
+    process.stdout.write("Goodbye!\n", () => {
+      process.exit(0);
+    });
   });
 
   return registry;

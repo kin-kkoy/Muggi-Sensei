@@ -8,11 +8,11 @@
 ```text
 Command: muggi
 Arguments: none
-Environment: ANTHROPIC_API_KEY (required)
+Environment: none required for the default mock backend
 Behavior: Launches interactive session
 Exit codes:
   0 — clean exit via /exit or Ctrl+D
-  1 — fatal error (e.g., missing API key at startup)
+  1 — fatal startup error
 ```
 
 ## Slash Commands
@@ -73,7 +73,10 @@ Empty LLM response:
   → Print notice to stdout: "No response received. Try again."
   → Return to input prompt
 
-Missing ANTHROPIC_API_KEY at startup:
-  → Print error to stderr with instructions to set the variable
-  → Exit with code 1
+Default mock backend:
+  → Runs locally with no network or API key
+
+Future real backend:
+  → May require environment configuration, but should keep the same
+    command and session flow
 ```

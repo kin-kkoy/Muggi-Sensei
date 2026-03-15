@@ -6,6 +6,8 @@
     "strict": true,
     "rootDir": ".",
     "outDir": "dist",
+    "types": ["node"],
+    "noEmit": true,
     "skipLibCheck": true
   },
   "include": [

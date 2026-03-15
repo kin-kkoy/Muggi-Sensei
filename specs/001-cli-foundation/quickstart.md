@@ -3,8 +3,6 @@
 ## Prerequisites
 
 - Node.js 20+ installed
-- An Anthropic API key (set as `ANTHROPIC_API_KEY` environment
-  variable)
 
 ## Setup
 
@@ -13,9 +11,6 @@
 git clone <repo-url>
 cd muggi-sensei
 npm install
-
-# Set your API key
-export ANTHROPIC_API_KEY="sk-ant-..."
 ```
 
 ## Run (Development)
@@ -24,7 +19,8 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 npm run dev
 ```
 
-This launches the interactive session using `tsx` (no build step).
+This launches the interactive session using the default mock tutor
+adapter via `tsx` (no build step).
 
 ## Run (Built)
 
@@ -41,19 +37,18 @@ muggi
 Welcome to Muggi-Sensei! Type /help for commands.
 
 muggi> What is a closure in JavaScript?
-A closure is a function that remembers the variables from its
-outer scope even after that scope has finished executing...
+You asked about: What is a closure in JavaScript?
+Start by breaking the problem into one small step you can explain in your own words.
+If you want, ask for an example or a simpler version next.
 
 muggi> Can you give me an example?
-Sure! Here's a simple example...
-
-muggi> /help
-Available commands:
-  /help  - Show this help message
-  /exit  - End the session
+Here is a simple example related to your earlier question about: What is a closure in JavaScript?
+1. Start with a tiny input.
+2. Describe what the code should do.
+3. Trace the result one line at a time.
 
 muggi> /exit
-Goodbye! Happy coding.
+Goodbye!
 ```
 
 ## Run Tests
@@ -69,5 +64,5 @@ npm test
 - **SC-002**: Hold 5+ exchanges referencing earlier context — LLM
   should maintain awareness.
 - **SC-003**: Type `/help` — command list should appear.
-- **SC-004**: Disconnect network, send a message — error message
-  should appear, session should remain active.
+- **SC-004**: The CLI should keep running without any network or API
+  key requirement when using the default mock backend.

@@ -15,20 +15,21 @@ without the overhead of compiled languages.
 preference is TypeScript), Go (single binary but weaker LLM
 ecosystem), Rust (too much overhead for hobby project).
 
-## 2. LLM SDK
+## 2. LLM Adapter
 
-**Decision**: `@anthropic-ai/sdk` (official Anthropic TypeScript SDK)
+**Decision**: Small local LLM adapter with a mock implementation as
+the default backend
 
 **Rationale**:
-- First-class TypeScript types (`Anthropic.MessageParam`, etc.)
-- Reads `ANTHROPIC_API_KEY` from environment automatically
-- Conversation history is manual: maintain a `MessageParam[]` array,
+- Keeps the CLI runnable with no API key or network dependency
+- Preserves a clean seam for later Anthropic integration
+- Conversation history is manual: maintain a message array and
   append user/assistant messages each turn
-- Streaming available via `.stream()` helper — not needed for MVP
-  (plain blocking call is sufficient) but available for future use
-- Single-line initialization: `new Anthropic()`
+- Avoids premature backend lock-in while the CLI loop is still small
 
-**Alternatives considered**: None. This is the official SDK.
+**Alternatives considered**: Direct Anthropic integration now.
+Rejected for the current stage because it adds external setup and
+makes the MVP harder to run locally.
 
 ## 3. Interactive CLI
 
@@ -65,14 +66,13 @@ more configuration for TypeScript + ESM).
 
 | Dependency | Type | Purpose |
 |---|---|---|
-| `@anthropic-ai/sdk` | runtime | Claude API client |
 | `typescript` | dev | Compiler |
 | `vitest` | dev | Testing |
 | `tsx` | dev | Run .ts directly during development |
 
 **Not needed (YAGNI)**:
 - Commander/yargs/oclif — two commands, simple string parsing
-- dotenv — SDK reads ANTHROPIC_API_KEY from env natively
+- dotenv — no runtime configuration needed for the mock adapter
 - chalk/colors — plain text output for MVP
 - ora/spinners — out of scope for this feature
 - inquirer/prompts — readline/promises is sufficient

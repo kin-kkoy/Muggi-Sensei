@@ -6,15 +6,15 @@
 ## Summary
 
 Build the minimal interactive CLI for Muggi-Sensei: a terminal-based
-REPL that connects to the Claude API, maintains in-memory conversation
-history, and supports an extensible slash-command system with `/help`
-and `/exit` as the initial built-in commands. Plain text input and
-output only.
+REPL that uses a swappable LLM adapter, maintains in-memory
+conversation history, and supports an extensible slash-command system
+with `/help` and `/exit` as the initial built-in commands. Plain text
+input and output only.
 
 ## Technical Context
 
 **Language/Version**: TypeScript on Node.js 20+ (ES modules)
-**Primary Dependencies**: `@anthropic-ai/sdk` (runtime)
+**Primary Dependencies**: Node.js built-ins for CLI flow; LLM backend behind a small adapter
 **Storage**: In-memory only (no persistence in this feature)
 **Testing**: Vitest
 **Target Platform**: Linux, macOS, Windows (any Node.js environment)
@@ -61,7 +61,7 @@ src/
 ├── index.ts              # Entry point (shebang, bootstrap)
 ├── session.ts            # Session loop, input handling
 ├── commands.ts           # Command registry, /help, /exit
-└── llm.ts                # Claude API client wrapper
+└── llm.ts                # LLM adapter + default mock implementation
 
 tests/
 ├── commands.test.ts      # Command registry + built-in commands
